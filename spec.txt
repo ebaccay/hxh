@@ -1,0 +1,37 @@
+"""
+HUNTER X HUNTER FIGHTING GAME
+
+TODO:
+Button Engine:
+-determines which buttons are entered
+-determines how long inbetween presses
+-using above info, determines which action to pursue
+-constantly polls keyboard
+-constantly streams info back to main controller
+-use a FSM as a possible encoding for attacks. might migrate this to character engine; we’ll see
+Physics Engine:
+-determines location of all characters on screen
+-determines if in or out of bounds
+-determines movement of characters
+-determines if attack is within hitbox parameters
+-determins any acceleration/velocity changes in movement due to attacks/actions (like jumps or throws)
+Character Engine:
+-determines attack points of characters
+-determines health of characters
+-changes health depending on attacks
+-unique profiles for all characters
+-keeps track of character specific “stances” in order to keep track of special stance moves
+-characters also potentially have their own specific engines to work off of
+Stage Engine:
+-similar to the character engine but for stage flags and triggers
+-for example, walls, wall breaks, and so on
+-affects the physics engine and the character engine in terms of potential movement area as well as health modifiers
+Match Engine:
+-keeps track of current runtime of match
+-keeps track which characters are on field
+-keeps track of which characters play in which round and adjusts character profiles for each round
+-keeps track of game state (win/lose/in progress/etc)
+Controller Engine:
+-recieves all the outputs of the above engines as input
+-outputs engine flags and above engines use these flags as input to update their respective and internal game state
+"""
