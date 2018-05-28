@@ -1,20 +1,37 @@
 """
 HUNTER X HUNTER FIGHTING GAME
 
+OVERALL ARCHITECTURE:
+1) Controller sets up match engine
+2) Match engine takes character engines and stage engine as inputs
+3) The stage engine takes the physics engine as input
+4) Controller instantiates a new button engine
+5) Controller tells match engine to begin the match and waits
+6) match engine returns details regarding match and takes in
+   the outputs from the button engine and physics engine as inputs
+5) The physics engine takes the outputs of the match engine as inputs and returns updated character coordinates as
+   outputs
+
 TODO:
 Button Engine:
--determines which buttons are entered
--determines how long inbetween presses
+-determines which buttons are entered \ DONE!
+-determines how long inbetween presses \ DONE!
+-determines using timestamp whether or not keystrokes were simultaneous or separate
+    NOTE: simultaneous button presses have a segmented duration of less tan 0.01
 -using above info, determines which action to pursue
--constantly polls keyboard
+-constantly polls keyboard using msvcrt (because windows)
 -constantly streams info back to main controller
 -use a FSM as a possible encoding for attacks. might migrate this to character engine; we’ll see
+
+TODO:
 Physics Engine:
 -determines location of all characters on screen
 -determines if in or out of bounds
 -determines movement of characters
 -determines if attack is within hitbox parameters
 -determins any acceleration/velocity changes in movement due to attacks/actions (like jumps or throws)
+
+TODO:
 Character Engine:
 -determines attack points of characters
 -determines health of characters
@@ -22,15 +39,21 @@ Character Engine:
 -unique profiles for all characters
 -keeps track of character specific “stances” in order to keep track of special stance moves
 -characters also potentially have their own specific engines to work off of
+
+TODO:
 Stage Engine:
 -similar to the character engine but for stage flags and triggers
 -for example, walls, wall breaks, and so on
 -affects the physics engine and the character engine in terms of potential movement area as well as health modifiers
+
+TODO:
 Match Engine:
 -keeps track of current runtime of match
 -keeps track which characters are on field
 -keeps track of which characters play in which round and adjusts character profiles for each round
 -keeps track of game state (win/lose/in progress/etc)
+
+TODO:
 Controller Engine:
 -recieves all the outputs of the above engines as input
 -outputs engine flags and above engines use these flags as input to update their respective and internal game state

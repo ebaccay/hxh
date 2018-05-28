@@ -1,0 +1,44 @@
+import msvcrt
+import time
+
+
+def key_poll():
+    keystroke = msvcrt.kbhit()
+    if keystroke:
+        return int(str(ord(msvcrt.getch())))
+    return 0
+
+
+def create_key_dictionary():
+    key_arr = [96, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 45, 61, 8, 9, 113, 119, 101, 114, 116, 121, 117, 105, 111
+               , 112, 91, 93, 92, 97, 115, 100, 102, 103, 104, 106, 107, 108, 59, 39, 13, 122, 120, 99, 118, 98, 110,
+               109, 44, 46, 47, 32, 75, 72, 80, 77]
+    val_arr = ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=",  "(BACKSPACE)", "(TAB)",  "q", "w", "e",
+               "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'",
+               "(ENTER)", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/",  "(SPACE)",  "(LEFT)", "(UP)",  "(DOWN)",
+               "(RIGHT)"]
+    key_dictionary, i = {}, 0
+    for k in key_arr:
+        key_dictionary[k] = val_arr[i]
+        i += 1
+    return key_dictionary
+
+
+if __name__ == "__main__":
+    key_dict = create_key_dictionary()
+
+    start = time.clock()
+    while True:
+        press = key_poll()
+        if press == 27:
+            break
+        elif press != 0:
+            end = time.clock()
+            duration = end - start
+            start = time.clock()
+
+            print(key_dict[press])
+            print(duration)
+
+    print("End Process.")
+    exit(0)
