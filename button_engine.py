@@ -1,8 +1,6 @@
 import msvcrt
 import time
-
-FPS = 30
-REFRESH_RATE = 1 / FPS
+import sys
 
 
 def key_poll():
@@ -27,24 +25,41 @@ def create_key_dictionary():
     return key_dictionary
 
 
-if __name__ == "__main__":
+class ButtonEngine:
+    refresh_rate = 0
     key_dict = create_key_dictionary()
 
-    while True:
+    def __init__(self, frames_per_second=30):
+        self.refresh_rate = 1 / frames_per_second
+
+    def poll(self):
         inputs = []
         start = time.time()
-        while time.time() - start < REFRESH_RATE:
+
+        while time.time() - start < self.refresh_rate:
             press = key_poll()
             if press != 0:
-                inputs.append(key_dict[press])
+                inputs.append(self.key_dict[press])
 
-        if len(inputs) != 0:
-            print(sorted(inputs))
-        if "(ESC)" in inputs:
+        return sorted(inputs)
+
+if __name__ == "__main__":
+
+    def eprint(*args, **kwargs):
+        print(*args, file=sys.stderr, **kwargs)
+
+    eprint("Testing ButtonEngine functionality...")
+    eprint("\nPress any button to test input.")
+    eprint("Press ESC to terminate debug.\n")
+
+    while True:
+        buttons = ButtonEngine(30)
+        presses = buttons.poll()
+
+        if len(presses) != 0:
+            eprint(sorted(presses))
+
+        if "(ESC)" in presses:
             break
 
-        inputs = []
-        start = time.time()
-
-    print("End Process.")
-    exit(0)
+    eprint("\nDebug terminated.")

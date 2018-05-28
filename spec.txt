@@ -12,16 +12,20 @@ OVERALL ARCHITECTURE:
 5) The physics engine takes the outputs of the match engine as inputs and returns updated character coordinates as
    outputs
 
+NOTE: Stage and character engines are both unique profiles/classes that inherits from an overall "master" profile
+
 TODO:
 Button Engine:
 -determines which buttons are entered \ DONE!
 -determines how long inbetween presses \ DONE!
--determines using timestamp whether or not keystrokes were simultaneous or separate
+-determines using timestamp whether or not keystrokes were simultaneous or separate \ DONE! Implemented using a frame by frame input model
     NOTE: simultaneous button presses have a segmented duration of less tan 0.01
 -using above info, determines which action to pursue
 -constantly polls keyboard using msvcrt (because windows)
 -constantly streams info back to main controller
 -use a FSM as a possible encoding for attacks. might migrate this to character engine; we’ll see
+
+What the button engine basically does is poll input for the specified number of seconds and then relays button presses back to the controller
 
 TODO:
 Physics Engine:
