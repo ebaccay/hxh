@@ -44,10 +44,11 @@ class ButtonEngine:
         return sorted(inputs)
 
 if __name__ == "__main__":
-
     def eprint(*args, **kwargs):
         print(*args, file=sys.stderr, **kwargs)
 
+
+    eprint("NOTE: This only works on windows! Mac and Unix functionality to be added soon...\n")
     eprint("Testing ButtonEngine functionality...")
     eprint("\nPress any button to test input.")
     eprint("Press ESC to terminate debug.\n")
