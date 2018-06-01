@@ -1,6 +1,5 @@
 import msvcrt
 import time
-import sys
 
 
 def key_poll():
@@ -26,7 +25,6 @@ def create_key_dictionary():
 
 
 class ButtonEngine:
-    refresh_rate = 0
     key_dict = create_key_dictionary()
 
     def __init__(self, frames_per_second=30):
@@ -44,6 +42,8 @@ class ButtonEngine:
         return sorted(inputs)
 
 if __name__ == "__main__":
+    import sys
+
     def eprint(*args, **kwargs):
         print(*args, file=sys.stderr, **kwargs)
 
@@ -54,11 +54,11 @@ if __name__ == "__main__":
     eprint("Press ESC to terminate debug.\n")
 
     while True:
-        buttons = ButtonEngine(30)
+        buttons = ButtonEngine()
         presses = buttons.poll()
 
         if len(presses) != 0:
-            eprint(sorted(presses))
+            eprint(presses)
 
         if "(ESC)" in presses:
             break
