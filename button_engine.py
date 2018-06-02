@@ -40,27 +40,3 @@ class ButtonEngine:
                 inputs.append(self.key_dict[press])
 
         return sorted(inputs)
-
-if __name__ == "__main__":
-    import sys
-
-    def eprint(*args, **kwargs):
-        print(*args, file=sys.stderr, **kwargs)
-
-
-    eprint("NOTE: This only works on windows! Mac and Unix functionality to be added soon...\n")
-    eprint("Testing ButtonEngine functionality...")
-    eprint("\nPress any button to test input.")
-    eprint("Press ESC to terminate debug.\n")
-
-    while True:
-        buttons = ButtonEngine()
-        presses = buttons.poll()
-
-        if len(presses) != 0:
-            eprint(presses)
-
-        if "(ESC)" in presses:
-            break
-
-    eprint("\nDebug terminated.")

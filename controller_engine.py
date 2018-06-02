@@ -4,11 +4,11 @@
 # NOTE: the third one may need a rudimentary character engine; we'll see
 
 import button_engine as be
-import  physics_engine as pe
+import physics_engine as pe
 
 
 def main():
-    buttons = be.ButtonEngine(30)
+    buttons = be.ButtonEngine()
 
 
 if __name__ == "__main__":

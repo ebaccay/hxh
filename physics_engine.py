@@ -1,5 +1,6 @@
-# TODO: Change manual x, y assignment vectors to be theta, magnitude form instead
 # TODO: Add decay to vy as well
+import math
+
 
 class PhysicsEngine:
     population = {}
@@ -43,6 +44,13 @@ class PhysicsEngine:
 
         self.population[i] = new_coords
 
+    def throw(self, i, magnitude, theta):
+        rad = theta * (math.pi / 180)
+
+        vx = magnitude * math.cos(rad)
+        vy = magnitude * math.sin(rad)
+        self.update(i, vx=vx, vy=vy)
+
     def update_coords(self, coords):
         sy = coords[1]
         vy = coords[3]
@@ -76,77 +84,3 @@ class PhysicsEngine:
     def tick(self):
         for key, val in self.population.items():
             self.population[key] = self.update_coords(val)
-
-if __name__ == "__main__":
-    import sys
-    import matplotlib.pyplot as plt
-
-    def eprint(*args, **kwargs):
-        print(*args, file=sys.stderr, **kwargs)
-
-    eprint("Testing PhysicsEngine functionality...")
-
-    test = True
-
-    while test:
-        horizontal_velocity = ""
-        vertical_velocity = ""
-        decay = ""
-
-        eprint("Please enter said values to test:")
-
-        eprint("\nHorizontal Velocity?")
-        while not isinstance(horizontal_velocity, int):
-            try:
-                horizontal_velocity = input("> ")
-                horizontal_velocity = int(horizontal_velocity)
-            except ValueError:
-                eprint("Please enter a valid value.")
-
-        eprint("Vertical Velocity?")
-        while not isinstance(vertical_velocity, int):
-            try:
-                vertical_velocity = int(input("> "))
-            except ValueError:
-                eprint("Please enter a valid value.")
-
-        eprint("Decay rate? A value between 0 and 1")
-        while not isinstance(decay, float):
-            try:
-                decay = float(input("> "))
-                assert 0 <= decay <= 1
-            except ValueError:
-                eprint("Please enter a valid value.")
-            except AssertionError:
-                eprint("Please enter a value between 0 and 1.")
-
-        physics = PhysicsEngine(left=-50, right=50, top=50, bottom=0, ay=-10, decay=decay)
-        physics.populate(vx=horizontal_velocity, vy=vertical_velocity)
-
-        x0 = []
-        y0 = []
-
-        for i in range(1000):
-            x0.append(physics.coordinates(0)[0])
-            y0.append(physics.coordinates(0)[1])
-
-            physics.tick()
-
-        plt.plot(x0, y0, "b^")
-        plt.show()
-
-        eprint("Test again?")
-
-        response = ""
-        while response not in ["Y", "y", "N", "n"]:
-            response = input("> ")
-            eprint(response)
-
-            if response == "N" or response == "n":
-                test = False
-            elif response == "Y" or response == "y":
-                pass
-            else:
-                eprint("Please enter a valid input.")
-
-    eprint("Physics debug terminated.")
